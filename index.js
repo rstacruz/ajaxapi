@@ -1,14 +1,13 @@
 var URI = require('uri-template-lite').URI;
 
-module.exports = function (config) {
-  return new Api(config);
-};
-
 /*
  * API
  */
 
 function Api (config) {
+  if (!(this instanceof Api))
+    return new Api(config);
+
   if (typeof config === 'string') config = { base: config };
   else if (!config) config = {};
 
@@ -164,3 +163,9 @@ Api.prototype.saveResponse = function (res) {
   this.response = this.res = res;
   return res;
 };
+
+/*
+ * export
+ */
+
+module.exports = Api;
