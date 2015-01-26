@@ -19,27 +19,36 @@ function Api (config) {
 }
 
 /*
- * ThenRequest
+ * Api.request() : Api.request(...)
+ * ThenRequest instance. See http://npmjs.com/then-request
  */
 
 Api.request = require('then-request');
 
-/*
- * expand a URL tempalte
+/**
+ * Api.expand() : Api.expand(template, data)
+ * Expands a URL template.
+ *
+ *     API.expand('/get/{user}', { user: 'john' })
+ *     => "/get/john"
  */
 
 Api.expand = URI.expand;
 
 /*
- * Performs a request
+ * request() : request(method, url, [data])
+ * Performs a request.
  */
 
 Api.prototype.request = function (method, url, data) {
+  var options = { headers: {}, qs: {}, json: (data || {}) };
+
   var context = {
     method: method,
     url: this.prefix(url),
     data: data,
-    options: {}
+    headers: options.headers,
+    options: options
   };
 
   // apply before hooks (custom)
@@ -52,7 +61,9 @@ Api.prototype.request = function (method, url, data) {
     context.options);
 
   // apply after hooks (defaults)
-  pro = pro.then(this.parseBody);
+  pro = pro
+    .then(this.saveResponse.bind(this))
+    .then(this.parseBody.bind(this));
 
   // apply after hooks (custom)
   this._after.forEach(function (callbacks) {
@@ -143,4 +154,13 @@ Api.prototype.prefix = function (url) {
     return (this.base || '') + url;
   else
     return url;
+};
+
+/*
+ * (internal) saves responses
+ */
+
+Api.prototype.saveResponse = function (res) {
+  this.response = this.res = res;
+  return res;
 };
