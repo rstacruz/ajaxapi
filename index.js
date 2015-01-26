@@ -1,5 +1,3 @@
-var URI = require('uri-template-lite').URI;
-
 /*
  * API
  */
@@ -31,8 +29,6 @@ Api.request = require('then-request');
  *     API.expand('/get/{user}', { user: 'john' })
  *     => "/get/john"
  */
-
-Api.expand = URI.expand;
 
 /*
  * request() : request(method, url, [data])
@@ -130,18 +126,6 @@ Api.prototype.parseBody = function (res) {
     return JSON.parse(body);
   else
     return body;
-};
-
-/*
- * endpoint
- */
-
-Api.prototype.endpoint = function (method, template) {
-  var self = this;
-  return function (uridata, data) {
-    var url = Api.expand(template, uridata);
-    return self.request(method, url, data);
-  };
 };
 
 /*

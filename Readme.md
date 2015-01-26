@@ -62,20 +62,3 @@ API.after(function (data) {
   return data;
 });
 ```
-
-### Endpoints
-
-```js
-var API = ajaxapi('https://reddit.com');
-
-var Red = {
-  search:    API.endpoint('GET',  '/r/{sub}/search{?q}'),
-  subscribe: API.endpoint('POST', '/r/{sub}/subscribe')
-};
-
-Red.search({ sub: 'fitness', q: 'squats' })
-  .then(...)
-
-Red.subscribe({ sub: 'xxfitness' })
-  .then(...)
-```

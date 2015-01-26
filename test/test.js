@@ -33,23 +33,3 @@ describe('404', function () {
       });
   });
 });
-
-describe('endpoint', function () {
-  var data;
-
-  beforeEach(function () {
-    mockApi()
-      .get('/search?q=hello')
-      .reply(200, { result: 'ok' });
-  });
-
-  beforeEach(function (next) {
-    var search = Api.endpoint('GET', '/search{?q}');
-    return search({ q: 'hello' })
-      .then(function (d) { data = d; next(); });
-  });
-
-  it('works', function () {
-    expect(data.result).eql('ok');
-  });
-});
