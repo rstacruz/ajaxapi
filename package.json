@@ -1,0 +1,22 @@
+{
+  "name": "ajaxapi",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rico Sta. Cruz <hi@ricostacruz.com>",
+  "license": "MIT",
+  "dependencies": {
+    "then-request": "^2.0.3",
+    "uri-template-lite": "^0.1.10"
+  },
+  "devDependencies": {
+    "browserify": "^8.1.1",
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "nock": "^0.57.0",
+    "uglify-js": "^2.4.16"
+  }
+}
