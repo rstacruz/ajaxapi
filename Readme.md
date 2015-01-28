@@ -1,4 +1,4 @@
-# ajax-api
+# ajaxapi
 
 minimal ajax library.
 
