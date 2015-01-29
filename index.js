@@ -62,8 +62,12 @@ Api.prototype.request = function (method, url, data) {
 
   // apply after hooks (custom)
   this._after.forEach(function (callbacks) {
-    pro = pro.then(callbacks[0].bind(this), callbacks[1].bind(this));
+    pro = pro.then(proxy(callbacks[0]), proxy(callbacks[1]));
   });
+
+  function proxy (fn) {
+    return fn ? fn.bind(this) : null;
+  }
 
   return pro;
 };
