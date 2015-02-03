@@ -57,6 +57,7 @@ Api.prototype.request = function (method, url, data) {
 
   // apply after hooks (defaults)
   pro = pro
+    .then(this.catchCorsError.bind(this))
     .then(this.saveResponse.bind(this))
     .then(this.parseBody.bind(this));
 
@@ -150,6 +151,16 @@ Api.prototype.prefix = function (url) {
 Api.prototype.saveResponse = function (res) {
   this.response = this.res = res;
   return res;
+};
+
+/*
+ * (internal) catches cross origin request errors
+ */
+
+Api.prototype.catchCorsError = function (res) {
+  if (res && res.statusCode === 0) {
+    throw new Error("API failed due to cross-origin error");
+  }
 };
 
 /*
