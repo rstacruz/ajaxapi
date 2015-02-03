@@ -158,9 +158,9 @@ Api.prototype.saveResponse = function (res) {
  */
 
 Api.prototype.catchCorsError = function (res) {
-  if (res && res.statusCode === 0) {
+  if (res && res.statusCode === 0)
     throw new Error("API failed due to cross-origin error");
-  }
+  return res;
 };
 
 /*
