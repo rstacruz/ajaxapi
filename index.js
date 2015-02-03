@@ -126,7 +126,7 @@ Api.prototype.parseBody = function (res) {
     body = res.getBody(),
     type = res.headers['content-type'];
 
-  if (type.match(/^application\/json/))
+  if (type && type.match(/^application\/json/))
     return JSON.parse(body);
   else
     return body;
